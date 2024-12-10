@@ -4,17 +4,23 @@ from django.views.generic import ListView, CreateView, DetailView
 
 from .models import *
 
-name_th = ["Модель", "Название", "Кол-во", "Цена"]
+name_th = ["Название соревнования", "Место проведения", "Дата проведения"]
 
 
 class CompetitionHome(ListView):
     model = Competition
     template_name = "inventory_system/index.html"
-    context_object_name = "products"
+    context_object_name = "competitions"
     extra_context = {
         "title": "Главная страница",
         "name_th": name_th,
     }
+
+class CompetitionCreateView(CreateView):
+    model = Competition
+    fields = "__all__"
+    template_name = 'inventory_system/add-compet.html'
+    success_url = reverse_lazy('')
 
 
 def date_filter(request):
@@ -49,8 +55,8 @@ class Teams(ListView):
 class AthletePage(DetailView):
     model = Athlete
     template_name = "inventory_system/card.html"
-    slug_url_kwarg = "card_slug"
-    context_object_name = "card"
+    slug_url_kwarg = "athlete_slug"
+    context_object_name = "athlete"
     extra_context = {"title": "Информация о карточке"}
 
 

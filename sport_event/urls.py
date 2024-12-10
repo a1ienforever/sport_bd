@@ -9,5 +9,6 @@ urlpatterns = [
     path("shipment/", login_required(views.shipment), name="shipment"),
     path("cards/", login_required(views.Teams.as_view()), name="cards"),
     path("filter/", login_required(views.date_filter), name="date"),
-    path("card/<slug:card_slug>/", login_required(views.AthletePage.as_view()), name="card"),
+    path("athlete/<slug:athlete_slug>/", login_required(views.AthletePage.as_view()), name="athlete"),
+    path("competition/", login_required(views.CompetitionCreateView.as_view()), name="add-competition"),
 ]

@@ -18,19 +18,20 @@
             <th>{{ name_th.0 }}</th>
             <th>{{ name_th.1 }}</th>
             <th>{{ name_th.2 }}</th>
-            <th>{{ name_th.3 }}</th>
         </tr>
         </thead>
         <tbody>
-        {% for tr in products %}
+        {% for tr in competitions %}
 
         <tr>
-            <td><a href="{% url 'card' tr.model.slug%}">{{ tr.model.num }}</a></td>
-            <td>{{ tr.model.name }}</td>
-            <td>{{ tr.quantity }}</td>
-            {% with result=tr.quantity|multiply:tr.model.price %}
-            <td>{{ result }}</td>
-            {% endwith %}
+            <td>
+                <a href="{% url 'athlete' tr.slug %}">
+                    {{ tr.name }}{{ tr.slug }}
+                </a>
+                
+            </td>
+            <td>{{ tr.location }}</td>
+            <td>{{ tr.date }}</td>
         </tr>
         {% endfor %}
         <!-- Добавьте другие строки по необходимости -->
