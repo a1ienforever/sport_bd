@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="cards">
+    {% for athlete in athletes%}
+    <div class="card">
+        <!-- Верхняя часть -->
+        <div class="card__top">
+            <!-- Изображение-ссылка товара -->
+            <a href="{% url 'athlete' athlete.slug %}" class="card__image">
+                {{ athlete.first_name }} {{ athlete.last_name }} - {{ athlete.team }}
+            </a>
+
+        </div>
+        
+            <a href="{% url 'athlete' athlete.slug %}" class="card__title">
+                Узнать подробнее
+            </a>
+
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

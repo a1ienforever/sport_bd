@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+<h1 class="title-decor"></h1>
+
+    <h1 class="align-center">{{ team.name }}</h1>
+    <h2>Город: {{ team.city }}</h2>
+    <h3>Дата основания: {{ team.created_at }}</h3>
+    
+    <h3>Состав команды:</h3>
+    <ul>
+        {% for athlete in team.athlete_set.all %}
+            <li><a href="{% url 'athlete' athlete.slug %}">{{ athlete.first_name }} {{ athlete.last_name }}</a> ({{ athlete.date_of_birth }})</li>
+        {% empty %}
+            <li>В команде пока нет спортсменов.</li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+
+
+{% endblock %}

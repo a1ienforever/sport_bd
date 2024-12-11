@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>{{ competition.name }}</h1>
+
+        <h2>Место проведения: {{ competition.location }}</h2>
+        <h2>Дата: {{ competition.date }}</h2>
+
+        <h3>Команды:</h3>
+        <ul>
+            {% for team in competition.teams.all %}
+                <li><h1><a href="{% url 'team' team.slug %}">{{ team.name }}</a></h1></li>
+            {% empty %}
+                <li>Команды не найдены</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+
+
+{% endblock %}

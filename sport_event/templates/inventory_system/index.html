@@ -2,15 +2,7 @@
 {% block content %}
 {% load bijin_tags %}
 
-<div id="date_frame">
-    <form action="" method="POST" class="" enctype="multipart/form-data">
-        {% csrf_token %}
-        <label for="id_1">C</label><input type="date" id="id_1" name="from_date">
-        <label for="id_2">по</label><input type="date" id="id_2" name="to_date">
-        <button type="submit" class="btn">Показать</button>
-        <button type="reset" class="btn">Сбросить</button>
-    </form>
-</div>
+
 <div class="container">
     <table class="table">
         <thead>
@@ -25,8 +17,8 @@
 
         <tr>
             <td>
-                <a href="{% url 'athlete' tr.slug %}">
-                    {{ tr.name }}{{ tr.slug }}
+                <a href="{% url 'competition' tr.slug %}">
+                    {{ tr.name }}
                 </a>
                 
             </td>

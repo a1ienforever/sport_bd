@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+        <h1>Информация об атлете</h1>
+        <div class="athlete-card">
+            <h2>{{ athlete.first_name }} {{ athlete.last_name }}</h2>
+            <p><strong>Дата рождения:</strong> {{ athlete.date_of_birth }}</p>
+            
+            {% if athlete.team %}
+                <p><strong>Команда:</strong> 
+                    <a href="{% url 'team' athlete.team.slug %}">{{ athlete.team.name }}</a>
+                </p>
+            {% else %}
+                <p><strong>Команда:</strong> Не указана</p>
+            {% endif %}
+        
+             <h2>Достижения</h2>
+            {% if athlete.achievements.all %}
+                <ul>
+                    {% for achievement in athlete.achievements.all %}
+                        <li>
+                            <strong>{{ achievement.title }}</strong> - {{ achievement.date }}
+                            {% if achievement.description %}
+                                <p>{{ achievement.description }}</p>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>У атлета пока нет достижений.</p>
+            {% endif %}
+        </div>
+
+        
+    </div>
+
+
+
+{% endblock %}
