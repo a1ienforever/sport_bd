@@ -6,6 +6,9 @@ from .forms import AddAthleteForm, AddCompetitionForm
 from .models import *
 
 name_th = ["Название соревнования", "Место проведения", "Дата проведения"]
+NAME_TH_ATHLETE = ['ФИО', 'Дата рождения', 'Команда']
+NAME_TH_TEAM = ['Название', 'Город', 'Дата основания', 'Тренер']
+
 
 
 class CompetitionHome(ListView):
@@ -42,9 +45,9 @@ class CreateTeam(CreateView):
 
 class Teams(ListView):
     model = Team
-    context_object_name = "cards"
-    template_name = "inventory_system/cards.html"
-    extra_context = {"title": "Список карточек"}
+    context_object_name = "teams"
+    template_name = "inventory_system/teams.html"
+    extra_context = {"title": "Список карточек", "name_th": NAME_TH_TEAM}
 
 
 class TeamPage(DetailView):
@@ -69,7 +72,7 @@ class AthletePage(DetailView):
     model = Athlete
     template_name = "inventory_system/athlete.html"
     slug_url_kwarg = "athlete_slug"
-    context_object_name = "athlete"
+    context_object_name = "athletes"
     extra_context = {"title": "Информация о карточке"}
 
 
@@ -77,7 +80,7 @@ class Athletes(ListView):
     model = Athlete
     context_object_name = "athletes"
     template_name = "inventory_system/athletes.html"
-    extra_context = {"title": "Список карточек"}
+    extra_context = {"title": "Список карточек", 'name_th': NAME_TH_ATHLETE}
 
 
 def shipment(request):

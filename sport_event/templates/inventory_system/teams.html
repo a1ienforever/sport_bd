@@ -7,24 +7,22 @@
             <th>{{ name_th.0 }}</th>
             <th>{{ name_th.1 }}</th>
             <th>{{ name_th.2 }}</th>
+            <th>{{ name_th.3 }}</th>
         </tr>
         </thead>
         <tbody>
-        {% for athlete in athletes %}
+        {% for team in teams %}
 
         <tr>
             <td>
-                <a href="{% url 'athlete' athlete.slug %}">
-                    {{ athlete.first_name }} {{ athlete.last_name }}
+                <a href="{% url 'team' team.slug %}">
+                    {{ team.name }}
                 </a>
                 
             </td>
-            <td>{{ athlete.date_of_birth }}</td>
-            <td>
-                <a href="{% url 'team' athlete.team.slug %}">
-                {{ athlete.team.first_name }}
-                </a>
-            </td>
+            <td>{{ team.city }}</td>
+            <td>{{ team.created_at }}</td>
+            <td>{{ team.coach.first_name}} {{ team.coach.last_name }}</td>
         </tr>
         {% endfor %}
         <!-- Добавьте другие строки по необходимости -->
