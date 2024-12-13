@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView
 
 from .forms import AddAthleteForm, AddCompetitionForm
 from .models import *
@@ -72,7 +72,7 @@ class AthletePage(DetailView):
     model = Athlete
     template_name = "inventory_system/athlete.html"
     slug_url_kwarg = "athlete_slug"
-    context_object_name = "athletes"
+    context_object_name = "athlete"
     extra_context = {"title": "Информация о карточке"}
 
 
@@ -81,6 +81,22 @@ class Athletes(ListView):
     context_object_name = "athletes"
     template_name = "inventory_system/athletes.html"
     extra_context = {"title": "Список карточек", 'name_th': NAME_TH_ATHLETE}
+
+
+class UpdateAthlete(UpdateView):
+    model = Athlete
+    context_object_name = "athlete"
+    template_name = "inventory_system/update-athletes.html"
+    fields = '__all__'  # Specify the fields to be updated
+    extra_context = {"title": "Обновление"}
+    success_url = reverse_lazy('athletes')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.extra_context:
+            context.update(self.extra_context)
+        return context
+
 
 
 def shipment(request):

@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
+    <div class="container">
         <h1>Информация об атлете</h1>
         <div class="athlete-card">
             <h2>{{ athlete.first_name }} {{ athlete.last_name }}</h2>
             <p><strong>Дата рождения:</strong> {{ athlete.date_of_birth }}</p>
-            
+
             {% if athlete.team %}
-                <p><strong>Команда:</strong> 
+                <p><strong>Команда:</strong>
                     <a href="{% url 'team' athlete.team.slug %}">{{ athlete.team.name }}</a>
                 </p>
             {% else %}
                 <p><strong>Команда:</strong> Не указана</p>
             {% endif %}
-        
-             <h2>Достижения</h2>
+
+            <h2>Достижения</h2>
             {% if athlete.achievements.all %}
                 <ul>
                     {% for achievement in athlete.achievements.all %}
@@ -30,9 +30,14 @@
             {% else %}
                 <p>У атлета пока нет достижений.</p>
             {% endif %}
+            {% if athlete.pk %}
+                <a href="{% url 'update_athlete' athlete.pk %}" class="btn btn-primary">Изменить профиль</a>
+            {% else %}
+                <p>Данные об атлете недоступны.</p>
+            {% endif %}
         </div>
 
-        
+
     </div>
 
 

@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.urls import path
 from . import views
+from .views import UpdateAthlete
+
 
 urlpatterns = [
     path("", login_required(views.CompetitionHome.as_view()), name=""),
@@ -13,5 +15,6 @@ urlpatterns = [
     path("competition/<slug:competition_slug>/", login_required(views.CompetitionPage.as_view()), name="competition"),
     path("team/<slug:team_slug>/", login_required(views.TeamPage.as_view()), name="team"),
     path("athletes/", login_required(views.Athletes.as_view()), name="athletes"),
+path('athletes/update/<int:pk>/', UpdateAthlete.as_view(), name='update_athlete'),
 
 ]
