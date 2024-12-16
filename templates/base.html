@@ -43,10 +43,6 @@
                         <div class="offcanvas-body">
                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="{% url ''%}">Список</a>
-                                </li>
-                                <hr>
-                                <li class="nav-item">
                                     <a class="nav-link active" href="{% url 'newcard' %}">Новый Спортсмен</a>
                                 </li>
                                 <hr>
@@ -59,12 +55,33 @@
                                 </li>
                                 <hr>
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="{% url 'teams' %}">Команды</a>
+                                    <a class="nav-link active" href="{% url 'create_sport' %}">Новый вид спорта</a>
                                 </li>
                                 <hr>
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="{% url 'athletes' %}">Спортсмены</a>
+                                    <a class="nav-link active" href="{% url 'coach_create' %}">Новый тренер</a>
                                 </li>
+                                <hr>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="{% url 'teams' %}">Список Команд</a>
+                                </li>
+                                <hr>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="{% url 'athletes' %}">Список Спортсменов</a>
+                                </li>
+                                <hr>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="{% url 'sports' %}">Список видов спорта</a>
+                                </li>
+                                <hr>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="{% url 'coach_list' %}">Список Тренеров</a>
+                                </li>
+                                <hr>
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="{% url ''%}">Список Соревнований</a>
+                                </li>
+                                <hr>
                             </ul>
                             <form class="d-flex mt-3" role="search">
                                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -76,6 +93,10 @@
             </nav>
         </div>
     </div>
+    <form class="d-flex mt-3" role="search">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-success" type="submit">Search</button>
+                            </form>
     {% block content %}
     {% endblock %}
 

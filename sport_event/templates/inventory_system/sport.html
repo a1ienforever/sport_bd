@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ title }}</h1>
+    <div class="sport-details">
+        <h2>{{ sport.name }}</h2>
+        <p><strong>Описание:</strong> {{ sport.description }}</p>
+    </div>
+
+    <div class="related-section">
+        <h2>Связанные атлеты</h2>
+        {% if sport.athletes.all %}
+            <ul>
+                {% for athlete in sport.athletes.all %}
+                    <li>
+                        <a href="{% url 'athlete_page' athlete.slug %}">
+                            {{ athlete.first_name }} {{ athlete.last_name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Нет связанных атлетов.</p>
+        {% endif %}
+        <a href="{% url 'update_sport' sport.pk %}" class="button">Изменить</a>
+    </div>
+</div>
+{% endblock %}

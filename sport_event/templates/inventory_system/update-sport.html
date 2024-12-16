@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>{{ title }}</h1>
+
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}  <!-- Рендерим форму с полями -->
+      
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Обновить</button>
+        <a href="{% url 'sports' %}" class="btn btn-secondary">Отмена</a> <!-- Кнопка для отмены -->
+      </div>
+    </form>
+    <form action="{% url 'delete_sport' sport.pk %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Удалить</button>
+</form>
+  </div>
+{% endblock %}

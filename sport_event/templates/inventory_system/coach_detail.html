@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+    <div class="container">
+    <title>{{ title }}</title>
+    
+        <h1>Информация о тренере</h1>
+        <div class="athlete-card">
+            <h2>{{ coach.first_name }} {{ coach.last_name }}</h2>
+
+            {% if coach.team %}
+                <p><strong>Команда:</strong>
+                    <a href="{% url 'team' coach.team.slug %}">{{ coach.team.name }}</a>
+                </p>
+            {% else %}
+                <p><strong>Команда:</strong> Не указана</p>
+            {% endif %}
+            {% if coach.pk %}
+                <a href="{% url 'coach_update' coach.pk %}" class="btn btn-primary">Изменить профиль</a>
+            {% endif %}
+    
+    </div>
+{% endblock %}

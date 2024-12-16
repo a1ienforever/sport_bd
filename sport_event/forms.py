@@ -16,7 +16,7 @@ class AddAthleteForm(ModelForm):
 
     class Meta:
         model = Athlete
-        fields = ['first_name', 'last_name', 'date_of_birth', 'team']
+        fields = ['first_name', 'last_name', 'date_of_birth', 'team', 'sport']
         widgets = {
             'date_of_birth': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }
@@ -26,7 +26,7 @@ class AddCompetitionForm(ModelForm):
 
     class Meta:
         model = Competition
-        fields = ['name', 'location', 'date', 'teams']
+        fields = ['name', 'location', 'date', 'teams', 'sport']
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }
