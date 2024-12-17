@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
+<form class="d-flex mt-3" method="get">
+                                {{ filter.form.as_p }}
+                                <button class="btn btn-outline-success" type="submit">Search</button>
+                            </form>
     <table class="table">
         <thead>
         <tr>
@@ -26,6 +30,10 @@
                 </a>
             </td>
         </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">Спортсмены не найдены</td>
+            </tr>
         {% endfor %}
         <!-- Добавьте другие строки по необходимости -->
         </tbody>

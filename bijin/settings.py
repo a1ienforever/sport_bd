@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
+from bijin.config import load_config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,10 +28,11 @@ SECRET_KEY = "django-insecure-fpe6kbjk*4z=24@9ccw=5nvx$58ho)vb6bu3w^t8rdwytew++v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
+config = load_config('.env')
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -44,6 +47,9 @@ INSTALLED_APPS = [
     'django_otp',
     'django_otp.plugins.otp_totp',
     'django_otp.plugins.otp_static',
+    'import_export',
+    'django_filters',
+
 ]
 
 MIDDLEWARE = [

@@ -1,32 +1,39 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load bijin_tags %}
+
+
 <div class="container">
+<form class="d-flex mt-3" method="get">
+                                {{ filter.form.as_p }}
+                                <button class="btn btn-outline-success" type="submit">Search</button>
+                            </form>
     <table class="table">
         <thead>
         <tr>
             <th>{{ name_th.0 }}</th>
             <th>{{ name_th.1 }}</th>
             <th>{{ name_th.2 }}</th>
-            <th>{{ name_th.3 }}</th>
         </tr>
         </thead>
         <tbody>
-        {% for team in teams %}
+        {% for tr in competitions %}
 
         <tr>
             <td>
-                <a href="{% url 'team' team.slug %}">
-                    {{ team.name }}
+                <a href="{% url 'competition' tr.slug %}">
+                    {{ tr.name }}
                 </a>
                 
             </td>
-            <td>{{ team.city }}</td>
-            <td>{{ team.created_at }}</td>
-            <td>{{ team.coach.first_name}} {{ team.coach.last_name }}</td>
+            <td>{{ tr.location }}</td>
+            <td>{{ tr.date }}</td>
         </tr>
         {% endfor %}
         <!-- Добавьте другие строки по необходимости -->
         </tbody>
     </table>
 </div>
+
 {% endblock %}
+

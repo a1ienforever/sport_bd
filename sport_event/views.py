@@ -1,7 +1,9 @@
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django_filters.views import FilterView
 
+from .filters import AthleteFilter, CompetitionFilter, TeamFilter
 from .forms import AddAthleteForm, AddCompetitionForm
 from .models import *
 
@@ -12,10 +14,11 @@ NAME_TH_SPORT = ['Название', 'Описание']
 NAME_TH_COACH = ['Имя', 'Фамилия', 'Команда']
 
 
-class CompetitionHome(ListView):
+class CompetitionHome(FilterView):
     model = Competition
-    template_name = "inventory_system/index.html"
+    template_name = "inventory_system/competition/index.html"
     context_object_name = "competitions"
+    filterset_class = CompetitionFilter
     extra_context = {
         "title": "Главная страница",
         "name_th": name_th,
@@ -25,13 +28,13 @@ class CompetitionHome(ListView):
 class CompetitionCreateView(CreateView):
     model = Competition
     form_class = AddCompetitionForm
-    template_name = 'inventory_system/add-compet.html'
+    template_name = 'inventory_system/competition/add-compet.html'
     success_url = reverse_lazy('')
 
 
 class CompetitionPage(DetailView):
     model = Competition
-    template_name = "inventory_system/competition.html"
+    template_name = "inventory_system/competition/competition.html"
     slug_url_kwarg = "competition_slug"
     context_object_name = "competition"
     extra_context = {"title": "Информация о карточке"}
@@ -46,21 +49,22 @@ class DeleteCompetition(DeleteView):
 class CreateTeam(CreateView):
     model = Team
     fields = ["name", "city", 'sport']
-    template_name = "inventory_system/add-team.html"
+    template_name = "inventory_system/team/add-team.html"
     success_url = reverse_lazy("")
     extra_context = {"title": "Добавление команды"}
 
 
-class Teams(ListView):
+class Teams(FilterView):
     model = Team
     context_object_name = "teams"
-    template_name = "inventory_system/teams.html"
+    filterset_class = TeamFilter
+    template_name = "inventory_system/team/teams.html"
     extra_context = {"title": "Список карточек", "name_th": NAME_TH_TEAM}
 
 
 class TeamPage(DetailView):
     model = Team
-    template_name = "inventory_system/team.html"
+    template_name = "inventory_system/team/team.html"
     slug_url_kwarg = "team_slug"
     context_object_name = "team"
     extra_context = {"title": "Информация о карточке"}
@@ -75,7 +79,7 @@ class DeleteTeam(DeleteView):
 class CreateAthlete(CreateView):
     model = Athlete
     form_class = AddAthleteForm
-    template_name = "inventory_system/newcard.html"
+    template_name = "inventory_system/athlete/add-athlete.html"
     success_url = reverse_lazy("")
     extra_context = {
         "title": "Добавление нового спортсмена",
@@ -84,23 +88,24 @@ class CreateAthlete(CreateView):
 
 class AthletePage(DetailView):
     model = Athlete
-    template_name = "inventory_system/athlete.html"
+    template_name = "inventory_system/athlete/athlete.html"
     slug_url_kwarg = "athlete_slug"
     context_object_name = "athlete"
     extra_context = {"title": "Информация о карточке"}
 
 
-class Athletes(ListView):
+class Athletes(FilterView):
     model = Athlete
     context_object_name = "athletes"
-    template_name = "inventory_system/athletes.html"
+    template_name = "inventory_system/athlete/athletes.html"
+    filterset_class = AthleteFilter
     extra_context = {"title": "Список карточек", 'name_th': NAME_TH_ATHLETE}
 
 
 class UpdateAthlete(UpdateView):
     model = Athlete
     context_object_name = "athlete"
-    template_name = "inventory_system/update-athletes.html"
+    template_name = "inventory_system/athlete/update-athletes.html"
     fields = '__all__'  # Specify the fields to be updated
     extra_context = {"title": "Обновление"}
     success_url = reverse_lazy('athletes')
@@ -121,7 +126,7 @@ class DeleteAthlete(DeleteView):
 class CreateSport(CreateView):
     model = Sport
     fields = ["name", 'description']
-    template_name = "inventory_system/newsport.html"
+    template_name = "inventory_system/sport/newsport.html"
     success_url = reverse_lazy("sports")
     extra_context = {
         "title": "Добавление нового вида спорта",
@@ -130,7 +135,7 @@ class CreateSport(CreateView):
 
 class SportPage(DetailView):
     model = Sport
-    template_name = "inventory_system/sport.html"
+    template_name = "inventory_system/sport/sport.html"
     slug_url_kwarg = "sport_slug"
     context_object_name = "sport"
     extra_context = {"title": "Информация о виде спорта"}
@@ -139,7 +144,7 @@ class SportPage(DetailView):
 class Sports(ListView):
     model = Sport
     context_object_name = "sports"
-    template_name = "inventory_system/sports.html"
+    template_name = "inventory_system/sport/sports.html"
     extra_context = {"title": "Список карточек", 'name_th': NAME_TH_SPORT}
 
 
@@ -152,7 +157,7 @@ class DeleteSport(DeleteView):
 class UpdateSport(UpdateView):
     model = Sport
     context_object_name = "sport"
-    template_name = "inventory_system/update-sport.html"
+    template_name = "inventory_system/sport/update-sport.html"
     fields = '__all__'  # Specify the fields to be updated
     extra_context = {"title": "Обновление"}
     success_url = reverse_lazy('sports')
@@ -166,33 +171,33 @@ class UpdateSport(UpdateView):
 
 class CoachListView(ListView):
     model = Coach
-    template_name = 'inventory_system/coach_list.html'  # Шаблон для отображения списка
+    template_name = 'inventory_system/coach/coach_list.html'  # Шаблон для отображения списка
     context_object_name = 'coaches'
     extra_context = {'title': 'Список тренеров', 'name_th': NAME_TH_COACH}
 
 
 class CoachDetailView(DetailView):
     model = Coach
-    template_name = 'inventory_system/coach_detail.html'  # Шаблон для отображения деталей
+    template_name = 'inventory_system/coach/coach_detail.html'  # Шаблон для отображения деталей
     slug_url_kwarg = "coach_slug"
     context_object_name = "coach"
     extra_context = {"title": "Информация о тренере"}
 
 class CoachCreateView(CreateView):
     model = Coach
-    template_name = 'inventory_system/coach_form.html'    # Шаблон для формы создания
+    template_name = 'inventory_system/coach/coach_form.html'  # Шаблон для формы создания
     fields = ['first_name', 'last_name', 'team', 'sport']  # Поля для формы
     success_url = reverse_lazy('coach_list')  # Перенаправление после успешного создания
 
 
 class CoachUpdateView(UpdateView):
     model = Coach
-    template_name = 'inventory_system/coach_form.html'    # Тот же шаблон, что и для создания
+    template_name = 'inventory_system/coach/coach_form.html'  # Тот же шаблон, что и для создания
     fields = ['first_name', 'last_name', 'team', 'sport']  # Поля для формы
     success_url = reverse_lazy('coach_list')  # Перенаправление после успешного обновления
 
 
 class CoachDeleteView(DeleteView):
     model = Coach
-    template_name = 'inventory_system/coach_confirm_delete.html'  # Шаблон для подтверждения удаления
+    template_name = 'inventory_system/coach/coach_confirm_delete.html'  # Шаблон для подтверждения удаления
     success_url = reverse_lazy('coach_list')
